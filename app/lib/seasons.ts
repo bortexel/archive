@@ -1,4 +1,5 @@
-import { query } from './db'
+import { neon } from '@neondatabase/serverless'
+import { query } from '@/app/lib/db'
 
 export interface Season {
   title: string
