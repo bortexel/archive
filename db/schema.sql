@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS seasons (
   description TEXT NOT NULL,
   start_date DATE NOT NULL,
   end_date DATE NOT NULL,
-  download_url TEXT NOT NULL,
+  download_url TEXT,
+  version VARCHAR(255) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

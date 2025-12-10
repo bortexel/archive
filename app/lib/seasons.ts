@@ -7,7 +7,8 @@ export interface Season {
   description: string
   startDate: Date
   endDate: Date
-  downloadUrl: string
+  downloadUrl?: string
+  version: string
 }
 
 interface SeasonRow {
@@ -17,9 +18,9 @@ interface SeasonRow {
   description: string
   start_date: Date
   end_date: Date
-  download_url: string
+  download_url?: string
+  version: string
   created_at: Date
-  updated_at: Date
 }
 
 export async function getAllSeasons(): Promise<Season[]> {
@@ -34,5 +35,6 @@ export async function getAllSeasons(): Promise<Season[]> {
     startDate: row.start_date,
     endDate: row.end_date,
     downloadUrl: row.download_url,
+    version: row.version,
   }))
 }

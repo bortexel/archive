@@ -1,5 +1,5 @@
 import { Season } from '@/app/lib/seasons'
-import { Avatar, Box, Button, Stack, Typography } from '@mui/material'
+import { Avatar, Box, Button, Chip, Stack, Typography } from '@mui/material'
 import { DateTime } from 'luxon'
 import { Download } from '@mui/icons-material'
 
@@ -41,25 +41,30 @@ function SeasonBlock({ season, isLast = false }: SeasonBlockProps) {
           <Typography variant='h3'>
             { season.title }
           </Typography>
-          <Typography variant='body2' color='text.secondary'>
-            { formatDate(season.startDate) } — { formatDate(season.endDate) }
-          </Typography>
+          <Stack direction='row' spacing={ 2 } alignItems='center'>
+            <Chip label={ season.version } size='small'/>
+            <Typography variant='caption' color='text.secondary'>
+              { formatDate(season.startDate) } — { formatDate(season.endDate) }
+            </Typography>
+          </Stack>
         </Stack>
         <Typography variant='body2'>
           { season.description }
         </Typography>
-        <Box>
-          <Button
-            variant='contained'
-            color='primary'
-            href={ season.downloadUrl }
-            target='_blank'
-            rel='noopener noreferrer'
-            startIcon={ <Download/> }
-          >
-            Скачать карту
-          </Button>
-        </Box>
+        { !!season.downloadUrl && (
+          <Box>
+            <Button
+              variant='contained'
+              color='primary'
+              href={ season.downloadUrl }
+              target='_blank'
+              rel='noopener noreferrer'
+              startIcon={ <Download/> }
+            >
+              Скачать карту
+            </Button>
+          </Box>
+        ) }
       </Stack>
     </Box>
   )
