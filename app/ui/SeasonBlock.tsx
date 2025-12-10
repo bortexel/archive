@@ -2,6 +2,9 @@ import { Season } from '@/app/lib/seasons'
 import { Avatar, Box, Button, Chip, Stack, Typography } from '@mui/material'
 import { DateTime } from 'luxon'
 import { Download } from '@mui/icons-material'
+import { remark } from 'remark'
+import html from 'remark-html'
+import { useMemo } from 'react'
 
 interface SeasonBlockProps {
   season: Season
@@ -12,6 +15,13 @@ function SeasonBlock({ season, isLast = false }: SeasonBlockProps) {
   const formatDate = (date: Date) => {
     return DateTime.fromJSDate(date).setLocale('ru').toFormat('dd MMMM yyyy')
   }
+
+  const descriptionHtml = useMemo(() => {
+    const result = remark()
+      .use(html)
+      .processSync(season.description)
+    return result.toString()
+  }, [season.description])
 
   return (
     <Box sx={{ display: 'flex', gap: '32px' }}>
@@ -48,9 +58,7 @@ function SeasonBlock({ season, isLast = false }: SeasonBlockProps) {
             </Typography>
           </Stack>
         </Stack>
-        <Typography variant='body2'>
-          { season.description }
-        </Typography>
+        <Typography variant='body2' component='div' dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
         { !!season.downloadUrl && (
           <Box>
             <Button
